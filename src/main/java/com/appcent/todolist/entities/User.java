@@ -5,13 +5,8 @@ package com.appcent.todolist.entities;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -38,13 +33,8 @@ public class User implements Serializable {
     private String password;
 
 
-
-
-
     @Column(name ="active")
     private boolean active;
-
-
 
     public User(UUID id) {
         this.id = id;

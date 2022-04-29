@@ -2,7 +2,7 @@ package com.appcent.todolist.config;
 
 import com.appcent.todolist.auth.JwtAuthenticationEntryPoint;
 import com.appcent.todolist.auth.JwtFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,31 +17,35 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @Configuration
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private JwtAuthenticationEntryPoint authenticationEntryPoint;
-    @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private JwtFilter filter;
+
+    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
+
+    private final UserDetailsService userDetailsService;
+    private final JwtFilter filter;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws
             Exception {
         return super.authenticationManagerBean();
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/login","/h2-console/**").permitAll()
+                .authorizeRequests().antMatchers("/api/v1/auth/**", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)

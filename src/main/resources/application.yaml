@@ -12,8 +12,15 @@ spring:
   h2:
     console:
       enabled: true
+app-cent:
+  app:
+    jwtSecret: ${JWT_SECRET:secret-local}
+    jwtExpirationMs: ${JWT_EXPIRATION_IN_MS:6000000}
+
 server:
   port: 8082
-secret:
-  somerandomsecret
+
+logging:
+  level:
+     root: DEBUG
 

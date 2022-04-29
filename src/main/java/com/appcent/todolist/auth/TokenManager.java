@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims; import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,13 +16,20 @@ public class TokenManager implements Serializable {
     /**
      *
      */
-    private static final long serialVersionUID = 7008375124389347049L; public static final long TOKEN_VALIDITY = 10 * 60 * 60; @Value("${secret}")
+    private static final long serialVersionUID = 7008375124389347049L;
+
+    @Value("${app-cent.app.jwtExpirationMs}")
+    private int JWT_EXPIRATION_MS;
+
+    @Value("${app-cent.app.jwtSecret}")
     private String jwtSecret;
+
+    public BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     public String generateJwtToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + (long) this.JWT_EXPIRATION_MS))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
     public Boolean validateJwtToken(String token, UserDetails userDetails) {
