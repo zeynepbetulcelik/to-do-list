@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: app-cent
+  datasource:
+    url: jdbc:h2:mem:todolist
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+  h2:
+    console:
+      enabled: true
+server:
+  port: 8082
+secret:
+  somerandomsecret
+
