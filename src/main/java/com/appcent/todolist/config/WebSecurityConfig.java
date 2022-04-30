@@ -3,6 +3,7 @@ package com.appcent.todolist.config;
 import com.appcent.todolist.auth.JwtAuthenticationEntryPoint;
 import com.appcent.todolist.auth.JwtFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.h2.server.web.WebServlet;
 
 
 @Configuration
@@ -54,5 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+    }
+    @Bean
+    ServletRegistrationBean h2servletRegistration(){
+        ServletRegistrationBean registration = new ServletRegistrationBean( new WebServlet());
+        registration.addUrlMappings("/h2-console/*");
+        registration.addInitParameter("webAllowOthers", "true");
+        registration.addInitParameter("webPort", "7777");// <-- the port your wish goes here
+
+        return registration;
     }
 }

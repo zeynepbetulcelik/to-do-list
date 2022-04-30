@@ -1,7 +1,7 @@
 package com.appcent.todolist.services;
 
-import com.appcent.todolist.requests.UserInfoDTO;
-import com.appcent.todolist.responses.JwtResponseModel;
+import com.appcent.todolist.model.UserInfoDTO;
+import com.appcent.todolist.model.JwtResponseModel;
 
 
 public interface UserService {

@@ -1,4 +1,4 @@
-package com.appcent.todolist.requests;
+package com.appcent.todolist.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
