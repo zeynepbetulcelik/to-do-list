@@ -14,15 +14,15 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 app-cent:
   app:
     jwtSecret: ${JWT_SECRET:secret-local}
     jwtExpirationMs: ${JWT_EXPIRATION_IN_MS:6000000}
 
 server:
-  port: 8082
+  port: 8580
 
-logging:
-  level:
-     root: DEBUG
 
