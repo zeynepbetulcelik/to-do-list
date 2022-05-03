@@ -74,6 +74,17 @@ public class UserServiceImpl implements UserService {
         return  new JwtResponseModel(jwtToken);
     }
 
+    @Override
+    public UserInfoDTO getUserProfile() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user=userRepository.findByUsername(username).orElse(null);
+        UserInfoDTO userInfoDTO=new UserInfoDTO();
+        userInfoDTO.setName(user.getName());
+        userInfoDTO.setSurname(user.getSurname());
+        userInfoDTO.setUsername(user.getUsername());
+        return userInfoDTO;
+    }
+
     private String encodePassword(String password) {return passwordEncoder.encode(password);}
     private boolean checkUserExists(String username) {return userRepository.existsByUsername(username);}
 
