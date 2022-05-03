@@ -26,6 +26,15 @@ public class User implements Serializable {
     @Column(name = "name")
     private String name;
 
+    public User(UUID id, String name, String surname, String username, String password, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.password = password;
+        this.active = active;
+    }
+
     @Column(name = "surname")
     private String surname;
 

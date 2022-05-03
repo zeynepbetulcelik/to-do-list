@@ -6,9 +6,6 @@ import com.appcent.todolist.model.ToDoListDTO;
 
 import com.appcent.todolist.services.ListService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +21,8 @@ import java.util.UUID;
 public class ListController {
     private final ListService listService;
     @PostMapping("/to-do-list")
-    public ResponseEntity<ListResponseModel> createlist(@RequestBody ToDoListDTO toDoListDTO)  {
-        return ResponseEntity.status(HttpStatus.OK).body(listService.createToDoList(toDoListDTO));
+    public ResponseEntity<ListResponseModel> createList(@RequestBody ListResponseModel listResponseModel)  {
+        return ResponseEntity.status(HttpStatus.OK).body(listService.createToDoList(listResponseModel));
     }
     @GetMapping("/to-do-list")
     public ResponseEntity<List<ToDoListDTO>> getToDoLists()  {
@@ -36,5 +33,10 @@ public class ListController {
     public ResponseEntity<ListResponseModel> updateList(@RequestParam("id") UUID id)  {
         return ResponseEntity.status(HttpStatus.CREATED).body(listService.updateToDoList(id));
     }
+    @DeleteMapping("/to-do-list")
+    public ResponseEntity<?>deleteToDoList(@RequestParam("id") UUID id){
+        return ResponseEntity.status(HttpStatus.OK).body(listService.deleteToDoListById(id));
+    }
+
 
 }

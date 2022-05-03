@@ -40,23 +40,34 @@ public class ListServiceImpl implements ListService {
 
     @Override
     @Transactional
-    public ListResponseModel createToDoList(ToDoListDTO toDoListDTO) {
+    public ListResponseModel createToDoList(ListResponseModel listResponseModel) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(username).orElse(null);
         ToDoList toDoList = new ToDoList();
-        toDoList.setCategory(toDoListDTO.getCategory());
+        toDoList.setCategory(listResponseModel.getCategory());
         toDoList.setComplete(false);
-        toDoList.setName(toDoListDTO.getName());
+        toDoList.setName(listResponseModel.getName());
         toDoList.setUser(user);
         toDoListRepository.save(toDoList);
-        return new ListResponseModel(toDoList.getCategory(),toDoList.getName(),toDoList.isComplete(),toDoList.getId());
+        return new ListResponseModel(toDoList.getCategory(), toDoList.getName(), toDoList.isComplete(), toDoList.getId());
     }
 
     @Override
     @Transactional
     public ListResponseModel updateToDoList(UUID id) {
         toDoListRepository.updateToDoList(id);
-        ToDoList toDoList=toDoListRepository.findById(id).orElse(null);
-        return new ListResponseModel(toDoList.getCategory(),toDoList.getName(),true,toDoList.getId());
+        ToDoList toDoList = toDoListRepository.findById(id).orElse(null);
+        return new ListResponseModel(toDoList.getCategory(), toDoList.getName(), true, toDoList.getId());
+    }
+
+    @Override
+    public boolean deleteToDoListById(UUID id) {
+        try {
+            toDoListRepository.deleteById(id);
+            return true;
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
 }

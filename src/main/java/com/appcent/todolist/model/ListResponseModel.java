@@ -21,4 +21,8 @@ public class ListResponseModel implements Serializable {
         this.name=name;
         this.complete=complete;
     }
+
+    public ListResponseModel() {
+
+    }
 }

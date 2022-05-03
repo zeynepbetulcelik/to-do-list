@@ -8,8 +8,10 @@ import java.util.UUID;
 
 public interface ListService {
     List<ToDoListDTO> getAllLists();
-    ListResponseModel createToDoList(ToDoListDTO toDoListDTO);
+    ListResponseModel createToDoList(ListResponseModel listResponseModel);
     ListResponseModel updateToDoList(UUID id);
+    boolean deleteToDoListById(UUID id);
+
 
 
 
