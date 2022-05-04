@@ -55,18 +55,24 @@ public class ListServiceImpl implements ListService {
     @Override
     @Transactional
     public ListResponseModel updateToDoList(UUID id) {
-        toDoListRepository.updateToDoList(id);
         ToDoList toDoList = toDoListRepository.findById(id).orElse(null);
-        return new ListResponseModel(toDoList.getCategory(), toDoList.getName(), true, toDoList.getId());
+        if (toDoList == null) {
+            throw new RuntimeException("id is not valid");
+        } else {
+            toDoListRepository.updateToDoList(id);
+            return new ListResponseModel(toDoList.getCategory(), toDoList.getName(), true, toDoList.getId());
+        }
+
     }
 
     @Override
+    @Transactional
     public boolean deleteToDoListById(UUID id) {
         try {
             toDoListRepository.deleteById(id);
             return true;
         } catch (RuntimeException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("id is not valid");
         }
 
     }
