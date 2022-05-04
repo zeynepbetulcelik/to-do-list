@@ -1,7 +1,7 @@
 # Todolist Spring-Boot Application
 
 
-### Pullling from docker hub
+### Pulling from docker hub
 ```
 docker run --name todolist -e DATABASE_SERVER=jdbc:h2:mem:todolist -dp 8082:8580 zeynep875421/todolist:0.0.1 
 ```
