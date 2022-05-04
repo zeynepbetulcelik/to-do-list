@@ -28,7 +28,7 @@ public class ListServiceImpl implements ListService {
     @Override
     public List<ToDoListDTO> getAllLists() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        List<ToDoList> toDoLists = toDoListRepository.method(username);
+        List<ToDoList> toDoLists = toDoListRepository.getListsByUsername(username);
         List<ToDoListDTO> toDoListDTOS = new ArrayList<>();
         for (ToDoList toDoList : toDoLists) {
             ToDoListDTO toDoListDTO = new ToDoListDTO();

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Repository
 public interface ToDoListRepository extends JpaRepository<ToDoList, UUID> {
     @Query(value = " Select list.* from user inner join list on list.user_id=user.id where user.username=:username",nativeQuery = true)
-    List<ToDoList> method(@Param("username")String username);
+    List<ToDoList> getListsByUsername(@Param("username")String username);
 
     @Query(value="update list set list.complete=true where list.id=:id",nativeQuery = true)
     @Modifying
