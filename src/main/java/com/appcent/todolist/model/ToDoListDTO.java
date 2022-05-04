@@ -11,6 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ToDoListDTO implements Serializable {
+
     private UUID id;
     private String category;
 
