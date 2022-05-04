@@ -5,7 +5,7 @@
 ```
 docker run --name todolist -e DATABASE_SERVER=jdbc:h2:mem:todolist -dp 8082:8580 zeynep875421/todolist:0.0.1 
 ```
-When you run this command, it will be pulled first and then it will start running on port 8082 (If you want to debug source code it will be run on port 8580).
+When you run this command on your terminal, it will be pulled first and then it will start running on port 8082 (If you want to debug source code it will be run on port 8580).
 
 ### API Documentation with Swagger2
 I used swagger in the application. If you are wondering what kind of fields will be sent before sending a request to the APIs, you can get a request using GET at this link and review the documentation:
